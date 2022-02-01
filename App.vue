@@ -4,26 +4,26 @@
       <h1>Leifs' Kool Skool Library</h1>
       <p>A brief collection of our books</p>
     </div>
-    <ul v-if="available == false" v-bind:class="av">{{myArray[0].name}}</ul>
     <ul>
-      <li v-for="bok in myArray" v-bind:key="bok.name" >
-        {{ bok.name }} {{ bok.author }} {{ bok.available }}
-      </li>
+      <div
+        class="book"
+        v-for="book in myJson"
+        v-bind:key="book.Title"
+        v-bind:style="{ backgroundColor: book.BookColor}"
+      >
+        <p>{{ book.Title }}</p>
+      </div>
     </ul>
   </div>
 </template>
 
 
 <script>
+import library from "./library.json";
 export default {
   data() {
     return {
-        available: '', //är detta true, visas alla böcker
-      myArray: [
-        { name: "LOTR", author: "J.R.R. Tolkien", available: false },
-        { name: "Clean Code", author: "Bob Martin", available: true },
-        { name: "Coding JS", author: "David L", available: true },
-      ],
+      myJson: library,
     };
   },
 };
@@ -32,7 +32,7 @@ export default {
 
 <style scoped >
 body {
-  background-color: #c4c4c4;
+  background-color: gray;
 }
 .header {
   background-color: hotpink;
@@ -43,17 +43,47 @@ body {
   align-items: center;
 }
 .library {
-  background-color: peachpuff;
+  background-color: white;
   margin-left: auto;
   margin-right: auto;
   width: 70%;
+  height: 100vh;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  color: black;
+  font-size: 26px;
+}
+
+.book {
+  display: flex;
+  border: 2px solid black;
+  padding-left: 1rem;
+  height: 200px;
+  width: 150px;
+  max-width: 150px;
+  margin: 2rem;
+  background-color: calc(#c4c4c4 - #c4c4c4 * 0.5);
+}
+
+.book p {
+  margin-top: auto;
+  color: white;
+  font-weight: 500;
+  font-family: Arial;
 }
 
 .un {
-    color: red;
+  color: red;
+  font-family: Arial;
+  font-size: 16px;
 }
 
-.av { 
-    color: green;
+.av {
+  color: green;
 }
+
 </style>
